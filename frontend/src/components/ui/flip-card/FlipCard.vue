@@ -1,16 +1,16 @@
 <template>
-  <div :class="cn('group h-72 w-56 [perspective:1000px]', props.class)">
+  <div :class="cn('[perspective:1000px]', props.class)">
     <div
       :class="
         cn(
-          'relative h-full rounded-2xl transition-all duration-500 [transform-style:preserve-3d]',
+          'relative rounded-2xl transition-all duration-500 [transform-style:preserve-3d]',
           rotation[0],
         )
       "
     >
       <!-- Front -->
       <div
-        class="absolute size-full overflow-hidden rounded-2xl border [backface-visibility:hidden]"
+        class="absolute overflow-hidden rounded-2xl border bg-white [backface-visibility:hidden]"
       >
         <slot />
       </div>
@@ -19,7 +19,7 @@
       <div
         :class="
           cn(
-            'absolute h-full w-full overflow-hidden rounded-2xl border bg-black/80 p-4 text-slate-200 [backface-visibility:hidden]',
+            'absolute overflow-hidden rounded-2xl border bg-black/80 p-4 text-slate-200 [backface-visibility:hidden]',
             rotation[1],
           )
         "
