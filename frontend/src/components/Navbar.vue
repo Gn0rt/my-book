@@ -10,7 +10,6 @@ const route = useRoute()
    { name: 'Explorer', path: '/' },
    { name: 'Shop', path: '/shop' },
    { name: 'Blog', path: '/blog' },
-   { name: 'Log in', path: '/login' },
  ];
  // Ref để tham chiếu đến các phần tử menu
 const tabRefs = ref([])
@@ -65,13 +64,16 @@ watch(
       <router-link to="/" class="ml-4"><font-awesome-icon :icon="['fa', 'cart-shopping']" /></router-link>
 
     </div>
-    <ul class="nav-menu flex gap-8 list-none mr-5 relative">
+    <ul class="nav-menu flex items-center gap-8 list-none mr-5 relative">
       <li v-for="(item, index) in menuItems" :key="item.name" ref="tabRefs" class="relative">
         <router-link 
         :to="item.path" 
         class="text-white tracking-wider font-semibold relative transition-colors duration-200 hover:text-gray-300"
         @click="updateUnderline"
         >{{ item.name }}</router-link>
+      </li>
+      <li class="bg-white rounded-3xl tracking-wider font-semibold hover:bg-slate-400 duration-300">
+        <router-link to="/login" class="px-7 py-2 inline-block">Login</router-link>
       </li>
       <!-- Gạch dưới trượt -->
       <span
