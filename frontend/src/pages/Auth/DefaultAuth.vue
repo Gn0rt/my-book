@@ -1,9 +1,19 @@
 <script setup>
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 import PageLogin from "./Login.vue";
 import PageRegister from "./Register.vue";
 const isFlipped = ref(false);
 
+const users = reactive([
+  {
+    email: 'abc@gmail.com',
+    password:'123456'
+  },
+  {
+    email: 'bbc@gmail.com',
+    password: '123456'
+  }
+])
 </script>
 
 <template>
@@ -19,7 +29,7 @@ const isFlipped = ref(false);
         <div
           class="absolute inset-0 [backface-visibility:hidden]"
         >
-          <PageLogin />
+          <PageLogin :users="users" />
           <!-- Nút chuyển sang Đăng ký -->
           <div class="absolute bottom-6 right-6">
             <button
