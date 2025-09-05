@@ -11,7 +11,7 @@ console.log(props.blogs);
 
 </script>
 <template>
-    <div class="relative w-full pt-10 pb-[120px] px-10 bg-[#F5F6F8] top-[430px]">
+    <div class="w-full py-10 px-10 bg-[#F5F6F8]">
         <div>
             <div>
                 <router-link class="grid grid-cols-3 gap-5">
