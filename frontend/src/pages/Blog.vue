@@ -3,6 +3,51 @@
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import MaskImg from '@/assets/images/mask.png';
 import PersonModal from '@/assets/images/personModal.png';
+import BlogLayout from '@/layouts/BlogLayout.vue';
+import BlogImage1 from '@/assets/images/blogImg1.png';
+import BlogImage2 from '@/assets/images/blogImg2.png';
+import BlogImage3 from '@/assets/images/blogImg3.png';
+
+import { ref } from 'vue';
+
+const blogs = ref([
+  {
+    id: 1,
+    title: 'Lorem ipsum dolor sit amet',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
+    image: BlogImage1,
+  },
+    {
+    id: 2,
+    title: 'Lorem ipsum dolor sit amet',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
+    image: BlogImage2,
+  },
+    {
+    id: 3,
+    title: 'Lorem ipsum dolor sit amet',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
+    image: BlogImage3,
+  },
+    {
+    id: 4,
+    title: 'Lorem ipsum dolor sit amet',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
+    image: BlogImage3,
+  },
+    {
+    id: 5,
+    title: 'Lorem ipsum dolor sit amet',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
+    image: BlogImage2,
+  },
+    {
+    id: 6,
+    title: 'Lorem ipsum dolor sit amet',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
+    image: BlogImage1,
+  }
+]);
 
 </script>
 
@@ -10,8 +55,8 @@ import PersonModal from '@/assets/images/personModal.png';
   <DefaultLayout>
     <div class="absolute top-0 right-0 left-0 h-full -z-10">
       <div class="absolute top-20 left-20 z-10 w-[600px]">
-        <h1 class="text-[75px] font-bold uppercase">Read and add your insight</h1>
-        <p class="text-[25px] font-light">Find Your Favorite Book And React It Here For Free</p>
+        <h1 class="text-[75px] font-bold uppercase">Blog my book</h1>
+        <p class="text-[25px] font-light">Lightweight article where discussing matters relating to the book</p>
         <div>
           <input type="text">
         </div>
@@ -21,7 +66,10 @@ import PersonModal from '@/assets/images/personModal.png';
         <img :src="PersonModal" alt="" class="absolute top-[100px] right-[25%] h-[400px]">
       </div>
     </div>
+
+    <BlogLayout :blogs="blogs" />
   </DefaultLayout>
+
 </template>
 
 

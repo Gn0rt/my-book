@@ -7,11 +7,17 @@ const isFlipped = ref(false);
 const users = reactive([
   {
     email: 'abc@gmail.com',
-    password:'123456'
+    password:'123456',
+    name: 'Gnort',
+    age: 20,
+    address: 'Hà Nội'
   },
   {
     email: 'bbc@gmail.com',
-    password: '123456'
+    password: '123456',
+    name: 'Huyn',
+    age: 21,
+    address: 'Hà Nội'
   }
 ])
 </script>

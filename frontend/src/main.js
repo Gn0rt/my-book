@@ -10,10 +10,10 @@ import router from './router'
 
 // Import các icon bạn muốn dùng
 import { faUserSecret, faCartShopping, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
-import { faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { faFacebook, faTiktok, faYoutube } from '@fortawesome/free-brands-svg-icons'
 
 // Thêm icon vào library
-library.add(faUserSecret, faFacebook, faTwitter, faCartShopping, faEye, faEyeSlash)
+library.add(faUserSecret, faFacebook, faTiktok, faCartShopping, faEye, faEyeSlash, faYoutube)
 
 const app = createApp(App)
 app.component('font-awesome-icon', FontAwesomeIcon)

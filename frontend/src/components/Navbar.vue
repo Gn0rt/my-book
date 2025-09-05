@@ -1,12 +1,18 @@
 <!-- src/components/Navbar.vue -->
- <script setup>
- import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+<script setup>
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 import { watch } from 'vue'
+import { useAuth } from '@/composable/useAuth'
+
+const {currentUser, logout} = useAuth()
+console.log("info:", currentUser.value?.name)
+
+
 
 const route = useRoute()
 
- const menuItems = [
+const menuItems = [
    { name: 'Explorer', path: '/' },
    { name: 'Shop', path: '/shop' },
    { name: 'Blog', path: '/blog' },
@@ -19,8 +25,8 @@ const underlineStyle = ref({
   left: 0,
   width: 0,
 })
-  console.log('Route changed to:', route.path)
-  console.log('Menu items:', tabRefs.value)
+console.log('Route changed to:', route.path)
+console.log('Menu items:', tabRefs.value)
 const updateUnderline = () => {
   nextTick(() => {
     const activeIndex = menuItems.findIndex(item => item.path === route.path)
@@ -40,6 +46,7 @@ const handleResize = () => {
 
 onMounted(() => {
   updateUnderline()
+  console.log('User trong mounted:', currentUser.value)
   window.addEventListener('resize', handleResize)
 })
 
@@ -73,7 +80,9 @@ watch(
         >{{ item.name }}</router-link>
       </li>
       <li class="bg-white rounded-3xl tracking-wider font-semibold hover:bg-slate-400 duration-300">
-        <router-link to="/login" class="px-7 py-2 inline-block">Login</router-link>
+        <button v-if="currentUser" @click="logout" class="px-7 py-2 inline-block">{{ currentUser.name }}</button>
+        <router-link v-else to="/login" class="px-7 py-2 inline-block">Login</router-link>
+
       </li>
       <!-- Gạch dưới trượt -->
       <span

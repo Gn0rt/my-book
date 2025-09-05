@@ -1,10 +1,13 @@
 <script setup>
 import ImgLogin from "@/assets/images/login.png";
 import { ref, watch } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const props = defineProps(['users']);
 const userStorage = props.users;
-
+console.log(userStorage);
 const checkEmail = ref(false);
 const checkPassword = ref(false);
 
@@ -37,6 +40,20 @@ const handleSubmit = () => {
     checkPassword.value = true;
     errorPassword.value = "Password không được để trống!";
     console.log("Password không được để trống!");
+  }
+
+  const user = userStorage.find(user => user.email === formData.value.emailLogin && user.password === formData.value.passwordLogin);
+  console.log(user)
+  if(user) {
+    console.log("Đăng nhập thành công!");
+    const {email, name, age, address} = user;
+    localStorage.setItem('currentUser', JSON.stringify({email, name, age, address}));
+    router.push('/');
+  } else {
+    if(!checkEmail.value && !checkPassword.value) {
+      alert("Email hoặc Password không đúng!");
+      console.log("Email hoặc Password không đúng!");
+    }
   }
 }
 

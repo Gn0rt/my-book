@@ -10,7 +10,7 @@ import PersonModal from '@/assets/images/personModal.png';
   <DefaultLayout>
     <div class="absolute top-0 right-0 left-0 h-full -z-10">
       <div class="absolute top-20 left-20 z-10 w-[600px]">
-        <h1 class="text-[75px] font-bold uppercase">Read and add your insight</h1>
+        <h1 class="text-[75px] font-bold uppercase">appreciate your author's work</h1>
         <p class="text-[25px] font-light">Find Your Favorite Book And React It Here For Free</p>
         <div>
           <input type="text">

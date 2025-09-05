@@ -1,4 +1,3 @@
-<!-- src/layouts/DefaultLayout.vue -->
 <template>
   <div class="default-layout">
     <Header />
