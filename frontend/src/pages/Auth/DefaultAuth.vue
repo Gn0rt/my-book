@@ -45,7 +45,7 @@ const users = reactive([
         <div
           class="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]"
         >
-          <PageRegister />
+          <PageRegister :users="users" />
           <!-- Nút quay lại Đăng nhập -->
           <div class="absolute bottom-6 right-6">
             <button

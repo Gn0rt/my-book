@@ -16,6 +16,11 @@ const formData = ref({
   passwordLogin: ''
 })
 // console.log(userStorage[0].email)
+const showPassword = ref(false);
+
+const toggleShowPassword = () => {
+  showPassword.value = !showPassword.value;
+}
 
 const handleSubmit = () => {
   if(!formData.value.emailLogin.trim()) {
@@ -62,11 +67,12 @@ watch(() => [ formData.value.emailLogin, formData.value.passwordLogin], ([newEma
       <div class="flex items-center mb-5 flex-wrap relative">
         <input
           v-model="formData.emailLogin"
+          id="emailLogin"
           type="text"
           placeholder=" "
           class="inp ml-3 flex-1 p-2 border border-gray-300 rounded-lg outline-none focus:border-[#FF971D] transition-colors"
         />
-        <label class="text-label bg-white text-gray-300 absolute top-2 left-8">Email</label>
+        <label for="emailLogin" class="text-label bg-white text-gray-300 absolute top-2 left-8 cursor-text">Email</label>
         <p v-if="checkEmail" class="ml-4 text-xs text-red-500 w-full">{{ errorEmail }}</p>
       </div>
 
@@ -74,11 +80,15 @@ watch(() => [ formData.value.emailLogin, formData.value.passwordLogin], ([newEma
       <div class="flex items-center mb-6 mt-5 flex-wrap relative">
         <input
           v-model="formData.passwordLogin"
-          type="password"
+          id="password"
+          :type="showPassword ? 'text' : 'password'"
           placeholder=" "
           class="inp ml-3 flex-1 p-2 border border-gray-300 rounded-lg outline-none focus:border-[#FF971D] transition-colors"
         />
-        <label class="text-label bg-white text-gray-300 absolute top-2 left-8">Mật khẩu</label>
+        <label for="password"class="text-label bg-white text-gray-300 absolute top-2 left-8 cursor-text">Mật khẩu</label>
+        <button type="button" @click="toggleShowPassword" class="absolute bg-gray-200 py-2 px-4 right-0 rounded-lg">
+          <font-awesome-icon :icon="showPassword ? ['fa', 'fa-eye-slash'] : ['fa', 'fa-eye'] " />
+        </button>
         <p v-if="checkPassword" class="ml-4 text-xs text-red-500 w-full">{{ errorPassword }}</p>
       </div>
 
