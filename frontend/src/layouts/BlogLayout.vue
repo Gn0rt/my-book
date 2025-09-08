@@ -14,15 +14,20 @@ console.log(props.blogs);
     <div class="w-full py-10 px-10 bg-[#F5F6F8]">
         <div>
             <div>
-                <router-link class="grid grid-cols-3 gap-5">
-                    <div v-for="blog in blogs" :key="blog.id" class="bg-white h-[400px] rounded-lg shadow-lg">
+                <div class="grid grid-cols-3 gap-5">
+                    <router-link 
+                        v-for="blog in blogs" 
+                        :key="blog.id" 
+                        class="bg-white h-[400px] rounded-lg shadow-lg"
+                        :to="`/detail-blog/${blog.id}`"
+                    >
                         <img :src="blog.image" alt="" class="w-full h-[200px] object-cover rounded-t-lg">
                         <div class="p-4 text-center">
                             <h2 class="text-xl font-bold mb-2">{{ blog.title }}</h2>
                             <p class="text-gray-700 text-base">{{ blog.content }}</p>
                         </div>
-                    </div>
-                </router-link>
+                    </router-link>
+                </div>
             </div>
         </div>
     </div>

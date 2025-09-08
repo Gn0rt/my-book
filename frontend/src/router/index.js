@@ -3,6 +3,7 @@ import Explorer from '@/pages/Explorer.vue'
 import Blog from '@/pages/Blog.vue'
 import Shop from '@/pages/Shop.vue'
 import Login from '@/pages/Auth/DefaultAuth.vue'
+import DetailBlog from '@/pages/DetailBlog.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -15,6 +16,12 @@ const router = createRouter({
       path: '/blog',
       name: 'Blog',
       component: Blog,
+
+    },
+    {
+      path: '/detail-blog/:id',
+      name: 'DetailBlog',
+      component: DetailBlog,
     },
     {
       path: '/shop',

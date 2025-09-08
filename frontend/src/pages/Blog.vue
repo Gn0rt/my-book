@@ -5,57 +5,15 @@ import BlogSkeleton from '@/components/BlogSkeleton.vue';
 import MaskImg from '@/assets/images/mask.png';
 import PersonModal from '@/assets/images/personModal.png';
 import BlogLayout from '@/layouts/BlogLayout.vue';
-import BlogImage1 from '@/assets/images/blogImg1.png';
-import BlogImage2 from '@/assets/images/blogImg2.png';
-import BlogImage3 from '@/assets/images/blogImg3.png';
-
+import { blogs } from '@/fakedata/blog.js';
 import { ref, onMounted } from 'vue';
 
-const blogs = ref([
-  {
-    id: 1,
-    title: 'Lorem ipsum dolor sit amet',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
-    image: BlogImage1,
-  },
-    {
-    id: 2,
-    title: 'Lorem ipsum dolor sit amet',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
-    image: BlogImage2,
-  },
-    {
-    id: 3,
-    title: 'Lorem ipsum dolor sit amet',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
-    image: BlogImage3,
-  },
-    {
-    id: 4,
-    title: 'Lorem ipsum dolor sit amet',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
-    image: BlogImage3,
-  },
-    {
-    id: 5,
-    title: 'Lorem ipsum dolor sit amet',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
-    image: BlogImage2,
-  },
-    {
-    id: 6,
-    title: 'Lorem ipsum dolor sit amet',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
-    image: BlogImage1,
-  }
-]);
-
 const isLoaded = ref(false);
-
+console.log(blogs)
 onMounted(() => {
   setTimeout(() => {
     isLoaded.value = true;
-  }, 3000); // 5 giây
+  }, 3000); // Giả lập thời gian tải dữ liệu
 });
 </script>
 
