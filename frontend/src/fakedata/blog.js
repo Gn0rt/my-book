@@ -6,14 +6,14 @@ import DetailBlogImg from '@/assets/images/detailblogimg.png';
 export const blogs =[
   {
     id: 1,
-    title: 'Lorem ipsum dolor sit amet',
+    title: 'Lorem ipsum dolor sit amet 123',
     content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
     image: BlogImage1,
     imgBlogDetail: DetailBlogImg,
   },
     {
     id: 2,
-    title: 'Lorem ipsum dolor sit amet',
+    title: 'Lorem ipsum dolor sit amet 234',
     content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
     image: BlogImage2,
     imgBlogDetail: DetailBlogImg,

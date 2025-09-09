@@ -6,7 +6,7 @@ import MaskImg from '@/assets/images/mask.png';
 import PersonModal from '@/assets/images/personModal.png';
 import BlogLayout from '@/layouts/BlogLayout.vue';
 import { blogs } from '@/fakedata/blog.js';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 
 const isLoaded = ref(false);
 console.log(blogs)
@@ -14,6 +14,19 @@ onMounted(() => {
   setTimeout(() => {
     isLoaded.value = true;
   }, 3000); // Giả lập thời gian tải dữ liệu
+});
+
+const searchBlog = ref('');
+console.log(searchBlog);
+const filteredBlogs = computed(() => {
+  if (!searchBlog.value) {
+    return blogs;
+  }
+  const query = searchBlog.value.toLowerCase().trim();
+  return blogs.filter(blog =>
+    blog.title.toLowerCase().includes(query) ||
+    (blog.content && blog.content.toLowerCase().includes(query))
+  );
 });
 </script>
 
@@ -38,6 +51,7 @@ onMounted(() => {
       <div class="flex justify-center lg:justify-start">
         <input
           type="text"
+          v-model="searchBlog"
           placeholder="Search articles..."
           class="px-4 py-2 w-full max-w-md border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
@@ -48,7 +62,7 @@ onMounted(() => {
       class="transition-opacity duration-300 ease-in"
       :class="{ 'opacity-0': !isLoaded, 'opacity-100': isLoaded }"
     >
-      <BlogLayout v-if="isLoaded" :blogs="blogs" />
+      <BlogLayout v-if="isLoaded" :blogs="filteredBlogs" />
     </div>
 
     <!-- Hiển thị Skeleton Loading nếu chưa load -->
