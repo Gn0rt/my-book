@@ -21,8 +21,10 @@ import PersonModal from '@/assets/images/personModal.png';
         <img :src="PersonModal" alt="" class="absolute top-[100px] right-[25%] h-[400px]">
       </div>
     </div>
+
   </DefaultLayout>
 </template>
+
 
 
 <style scoped>
