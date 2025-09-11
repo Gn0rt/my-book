@@ -16,7 +16,7 @@ import PersonModal from '@/assets/images/personModal.png';
       />
     </div>
 
-        <!-- Nội dung chữ -->
+    <!-- Nội dung chữ -->
     <div class="relative z-10 max-w-4xl pb-20 pt-20 px-6 text-center lg:text-left lg:px-20 lg:pt-30">
       <h1 class="text-5xl md:text-6xl lg:text-[75px] font-bold uppercase mb-4">read and add your insight</h1>
       <p class="text-xl md:text-2xl font-light mb-8 capitalize">
