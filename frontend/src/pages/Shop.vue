@@ -6,14 +6,25 @@ import Sidebar from '@/components/Sidebar.vue';
 import ShopLayout from '@/layouts/ShopLayout.vue';
 import {products} from '@/fakedata/products.js';
 import { computed, ref } from 'vue';
+import { faCcJcb } from '@fortawesome/free-brands-svg-icons';
 
 const uniqueGenres = computed(() => {
   return [...new Set(products.map(product => product.genre))];
 })
 const selectedGenre = ref(uniqueGenres.value[0] || 'All');
 console.log("uniquegenre: ",uniqueGenres);
-
 console.log("genre: ",selectedGenre);
+
+const currentProducts = computed(() => {
+  return products.filter(book => book.genre === selectedGenre.value);
+});
+console.log("currentBooks: ",currentProducts);
+
+const handleSelectGenre = (genre) => {
+  selectedGenre.value = genre;
+  console.log("Selected genre:", selectedGenre.value);
+  console.log("currentBooks after selection:", currentProducts.value);
+};
 </script>
 
 <template>
@@ -44,15 +55,16 @@ console.log("genre: ",selectedGenre);
     </div>
 
     <div class="grid grid-cols-12 bg-[#F5F6F8]">
-      <div class="col-span-2 w-full mt-10 pl-5">
+      <div class="col-span-2 w-full my-10 pl-5">
         <Sidebar
           :genres="uniqueGenres"
           :selectedGenre="selectedGenre"
+          @selectGenre="handleSelectGenre"
         />
       </div>
 
-      <div class="col-span-10 w-full h-[200px] bg-red-400 mt-10 pr-5">
-        <ShopLayout />
+      <div class="col-span-10 w-full my-10 pr-5">
+        <ShopLayout :books="currentProducts" :genre="selectedGenre" />
       </div>
 
     </div>
