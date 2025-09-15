@@ -9,11 +9,11 @@ import App from './App.vue'
 import router from './router'
 
 // Import các icon bạn muốn dùng
-import { faUserSecret, faCartShopping, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import { faUserSecret, faCartShopping, faEye, faEyeSlash, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { faFacebook, faTiktok, faYoutube } from '@fortawesome/free-brands-svg-icons'
 
 // Thêm icon vào library
-library.add(faUserSecret, faFacebook, faTiktok, faCartShopping, faEye, faEyeSlash, faYoutube)
+library.add(faUserSecret, faFacebook, faTiktok, faCartShopping, faEye, faEyeSlash, faYoutube, faArrowLeft, faArrowRight)
 
 const app = createApp(App)
 app.component('font-awesome-icon', FontAwesomeIcon)

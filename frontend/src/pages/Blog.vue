@@ -9,7 +9,7 @@ import { blogs } from '@/fakedata/blog.js';
 import { ref, onMounted, computed } from 'vue';
 
 const isLoaded = ref(false);
-console.log(blogs)
+console.log("blogs:", blogs)
 onMounted(() => {
   setTimeout(() => {
     isLoaded.value = true;
@@ -18,6 +18,7 @@ onMounted(() => {
 
 const searchBlog = ref('');
 console.log(searchBlog);
+
 const filteredBlogs = computed(() => {
   if (!searchBlog.value) {
     return blogs;

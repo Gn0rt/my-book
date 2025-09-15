@@ -5,26 +5,40 @@ import PersonModal from '@/assets/images/personModal.png';
 import Sidebar from '@/components/Sidebar.vue';
 import ShopLayout from '@/layouts/ShopLayout.vue';
 import {products} from '@/fakedata/products.js';
-import { computed, ref } from 'vue';
-import { faCcJcb } from '@fortawesome/free-brands-svg-icons';
+import { computed, ref, onMounted } from 'vue';
+import BlogSkeleton from '@/components/BlogSkeleton.vue';
 
+//trả về một mảng thể loại
 const uniqueGenres = computed(() => {
-  return [...new Set(products.map(product => product.genre))];
+  return ['All',...new Set(products.map(product => product.genre))];
 })
-const selectedGenre = ref(uniqueGenres.value[0] || 'All');
+//thể loại được chọn mặc định là thể loại đầu tiên trong mảng
+const selectedGenre = ref('All');
 console.log("uniquegenre: ",uniqueGenres);
 console.log("genre: ",selectedGenre);
 
+//đếm số sản phẩm của thể loại được chọn
 const currentProducts = computed(() => {
+  if (selectedGenre.value.toLocaleLowerCase().trim() === 'All'.toLocaleLowerCase().trim()) {
+    return products; // ✅ Trả về tất cả sản phẩm
+  }
   return products.filter(book => book.genre === selectedGenre.value);
 });
 console.log("currentBooks: ",currentProducts);
 
+//xuwr lý sự kiện chọn thể loại
 const handleSelectGenre = (genre) => {
   selectedGenre.value = genre;
   console.log("Selected genre:", selectedGenre.value);
   console.log("currentBooks after selection:", currentProducts.value);
 };
+
+const isLoaded = ref(false);
+onMounted(() => {
+  setTimeout(() => {
+    isLoaded.value = true;
+  }, 3000); // Giả lập thời gian tải dữ liệu
+});
 </script>
 
 <template>
@@ -64,8 +78,11 @@ const handleSelectGenre = (genre) => {
       </div>
 
       <div class="col-span-10 w-full my-10 pr-5">
-        <ShopLayout :books="currentProducts" :genre="selectedGenre" />
+        <ShopLayout v-if="isLoaded" :books="currentProducts" :genre="selectedGenre" />
+        <BlogSkeleton v-if="!isLoaded" />
       </div>
+
+
 
     </div>
 
