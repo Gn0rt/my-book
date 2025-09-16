@@ -50,5 +50,84 @@ export const blogs =[
     image: BlogImage1,
     imgBlogDetail: DetailBlogImg,
 
+  },
+      {
+    id: 7,
+    title: 'Lorem ipsum dolor sit amet',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
+    image: BlogImage1,
+    imgBlogDetail: DetailBlogImg,
+  },
+      {
+    id: 8,
+    title: 'Lorem ipsum dolor sit amet',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
+    image: BlogImage1,
+    imgBlogDetail: DetailBlogImg,
+
+  },
+      {
+    id: 9,
+    title: 'Lorem ipsum dolor sit amet',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
+    image: BlogImage1,
+    imgBlogDetail: DetailBlogImg,
+
+  },
+      {
+    id: 10,
+    title: 'Lorem ipsum dolor sit amet',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
+    image: BlogImage1,
+    imgBlogDetail: DetailBlogImg,
+
+  },
+      {
+    id: 11,
+    title: 'Lorem ipsum dolor sit amet',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
+    image: BlogImage1,
+    imgBlogDetail: DetailBlogImg,
+
+  },
+      {
+    id: 12,
+    title: 'Lorem ipsum dolor sit amet',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
+    image: BlogImage1,
+    imgBlogDetail: DetailBlogImg,
+
+  },
+      {
+    id: 13,
+    title: 'Lorem ipsum dolor sit amet',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
+    image: BlogImage1,
+    imgBlogDetail: DetailBlogImg,
+
+  },
+      {
+    id: 14,
+    title: 'Lorem ipsum dolor sit amet',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
+    image: BlogImage1,
+    imgBlogDetail: DetailBlogImg,
+
+  },
+      {
+    id: 15,
+    title: 'Lorem ipsum dolor sit amet',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
+    image: BlogImage1,
+    imgBlogDetail: DetailBlogImg,
+
+  },
+      {
+    id: 16,
+    title: 'Lorem ipsum dolor sit amet',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat pellentesque consequat orci arcu habitasse hac cum dictumst. Urna, porta ornare ut quis.',
+    image: BlogImage1,
+    imgBlogDetail: DetailBlogImg,
+
   }
 ];
