@@ -62,16 +62,15 @@ watch(
 )
 </script>
 <template>
-  <nav class="navbar flex justify-between items-center p-4 bg-transparent">
-    <div class="nav-brand">
-      <router-link to="/" class="relative ml-5 ">
+  <nav class="navbar flex justify-between items-center sm:p-4 p-2 bg-transparent">
+    <div class="nav-brand sm:text-[16px] text-xs flex">
+      <router-link to="/" class="relative sm:ml-5 ">
         MY<span class="font-semibold">BOOK</span>
-        <span class="absolute top-0 w-[1px] h-5 mx-2 bg-red-600"></span>
+        <span class="hidden sm:inline-block absolute top-0 w-[1px] h-5 mx-2 bg-red-600"></span>
       </router-link>
       <router-link to="/" class="ml-4"><font-awesome-icon :icon="['fa', 'cart-shopping']" /></router-link>
-
     </div>
-    <ul class="nav-menu flex items-center gap-8 list-none mr-5 relative">
+    <ul class="nav-menu flex items-center sm:gap-8 gap-4 list-none sm:mr-5 relative sm:text-[16px] text-xs">
       <li v-for="(item, index) in menuItems" :key="item.name" ref="tabRefs" class="relative">
         <router-link 
         :to="item.path" 

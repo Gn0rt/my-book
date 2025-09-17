@@ -3,6 +3,22 @@
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import MaskImg from '@/assets/images/mask.png';
 import PersonModal from '@/assets/images/personModal.png';
+import { ref, onMounted, onUnmounted } from 'vue';
+
+const isMobile = ref(window.innerWidth < 640);
+console.log("Width: ", isMobile.value)
+
+const updateMobileStatus = () => {
+  isMobile.value = window.innerWidth < 640;
+};
+
+onMounted(() => {
+  window.addEventListener("resize", updateMobileStatus);
+})
+
+onUnmounted(() => {
+  window.removeEventListener("resize", updateMobileStatus);
+})
 </script>
 
 <template>
@@ -12,14 +28,17 @@ import PersonModal from '@/assets/images/personModal.png';
       <img
         :src="PersonModal"
         alt=""
-        class="absolute top-[100px] right-[10%] h-[400px] w-auto object-contain"
+        class="absolute top-[100px] sm:right-[10%] right-0 h-[400px] w-auto object-contain"
       />
     </div>
 
     <!-- Nội dung chữ -->
-    <div class="relative z-10 max-w-4xl pb-20 pt-20 px-6 text-center lg:text-left lg:px-20 lg:pt-30">
-      <h1 class="text-5xl md:text-6xl lg:text-[75px] font-bold uppercase mb-4">read and add your insight</h1>
-      <p class="text-xl md:text-2xl font-light mb-8 capitalize">
+    <div class="relative sm:mt-0 mt-[100px] z-10 max-w-4xl text-center lg:text-left sm:px-20 sm:py-30 px-5">
+      <h1 
+      class="text-5xl font-bold uppercase mb-4"
+      :class="[isMobile ? 'text-white': 'text-black, text-[75px]']"
+      >read and add your insight</h1>
+      <p class="text-xl sm::text-2xl sm:tẽxt-black text-white font-light mb-8 capitalize">
         find your favorite book and read it here for free
       </p>
       <div class="flex justify-center lg:justify-start">

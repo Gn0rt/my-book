@@ -25,7 +25,7 @@ const users = reactive([
 <template>
   <div class="flex min-h-screen items-center justify-center bg-[#FF971D] p-4">
     <!-- Container 3D -->
-    <div class="relative w-[800px] h-[500px] [perspective:1000px]">
+    <div class="relative w-[800px] h-[700px] [perspective:1000px]">
       <!-- Flip Container -->
       <div
         class="relative w-full h-full rounded-2xl [transform-style:preserve-3d] transition-transform duration-700 ease-in-out"
@@ -37,7 +37,7 @@ const users = reactive([
         >
           <PageLogin :users="users" />
           <!-- Nút chuyển sang Đăng ký -->
-          <div class="absolute bottom-6 right-6">
+          <div class="absolute sm:bottom-6 right-6 bottom-[60px]">
             <button
               @click="isFlipped = true"
               class="text-sm underline hover:text-gray-200 transition-colors"

@@ -78,14 +78,14 @@ watch(() => [ formData.value.emailLogin, formData.value.passwordLogin, formData.
 </script>
 
 <template>
-  <div class="bg-white w-full h-full rounded-2xl shadow-xl overflow-hidden flex">
+  <div class="bg-white w-full sm:h-full rounded-2xl shadow-xl sm:overflow-hidden sm:flex">
     <!-- Hình ảnh bên trái -->
-    <div class="w-1/2 h-full">
-      <img :src="ImgLogin" alt="Login" class="h-full w-full object-cover" />
+    <div class="sm:w-1/2 sm:h-full">
+      <img :src="ImgLogin" alt="Login" class="sm:h-full h-[300px] w-full object-cover" />
     </div>
 
     <!-- Form đăng nhập bên phải -->
-    <form @submit.prevent="handleSubmit" class="w-1/2 p-6 flex flex-col justify-center bg-white">
+    <form @submit.prevent="handleSubmit" class="sm:w-1/2 p-6 flex flex-col justify-center bg-white">
       <h2 class="text-2xl font-bold text-gray-800 mb-6">Đăng ký</h2>
 
       <!-- Tên đăng nhập -->
