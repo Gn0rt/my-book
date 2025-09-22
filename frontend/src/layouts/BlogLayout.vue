@@ -30,7 +30,7 @@ const handleChangePage = (page) => {
     <div class="w-full py-10 px-10 bg-[#F5F6F8]">
         <div>
             <div>
-                <div class="grid grid-cols-3 gap-5">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
                     <router-link 
                         v-for="blog in displayedBlogs" 
                         :key="blog.id" 
