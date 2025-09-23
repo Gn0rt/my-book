@@ -3,6 +3,7 @@ import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import MaskImg from '@/assets/images/mask.png';
 import PersonModal from '@/assets/images/personModal.png';
 import Sidebar from '@/components/Sidebar.vue';
+import SidebarMobile from '@/components/SidebarMobile.vue';
 import ShopLayout from '@/layouts/ShopLayout.vue';
 import {products} from '@/fakedata/products.js';
 import { computed, ref, onMounted } from 'vue';
@@ -83,7 +84,7 @@ onMounted(() => {
       <div 
         class="grid grid-cols-12 bg-[#F5F6F8] mt-[100px]"
       >
-        <div class="col-span-2 w-full my-10 pl-5">
+        <div class="hidden sm:block sm:col-span-2 w-full my-10 pl-5">
           <Sidebar
             :genres="uniqueGenres"
             :selectedGenre="selectedGenre"
@@ -91,7 +92,15 @@ onMounted(() => {
           />
         </div>
 
-        <div class="col-span-10 w-full my-10 pr-5">
+        <div class="col-span-12 sm:col-span-10 w-full my-10 pr-5 pl-5 sm:pl-0">
+          <div class="flex justify-end">
+            <SidebarMobile
+              v-if="isMobile"
+              :genres="uniqueGenres"
+              :selectedGenre="selectedGenre"
+              @selectGenre="handleSelectGenre"
+            />
+          </div>
           <ShopLayout v-if="isLoaded" :books="currentProducts" :genre="selectedGenre" />
           <BlogSkeleton v-if="!isLoaded" />
         </div>
