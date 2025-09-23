@@ -40,7 +40,7 @@ const handleChangePage = (page) => {
                         <img :src="blog.image" alt="" class="w-full h-[200px] object-cover rounded-t-lg">
                         <div class="p-4 text-center">
                             <h2 class="text-xl font-bold mb-2">{{ blog.title }}</h2>
-                            <p class="text-gray-700 text-base">{{ blog.content }}</p>
+                            <p class="text-gray-700 text-[14px] sm:text-base ">{{ blog.content }}</p>
                         </div>
                     </router-link>
                 </div>

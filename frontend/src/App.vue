@@ -3,5 +3,5 @@
 </script>
 
 <template>
-    <router-view :isMobile="isMobile" />
+    <router-view />
 </template>
