@@ -29,6 +29,9 @@ const handleChangePage = (page) => {
     currentPage.value = page;
     console.log("Current page changed to:", currentPage.value);
 }
+const formatPrice = (value) => {
+  return new Intl.NumberFormat('vi-VN').format(value);
+};
 </script>
 <template>
     <div>
@@ -43,7 +46,7 @@ const handleChangePage = (page) => {
                     <h3 class="text-lg font-semibold mb-2">{{ book.title }}</h3>
                     <p class="text-gray-400 text-xs">{{ book.description }}</p>
                     <p class="text-gray-600 mb-1">Tác giả: {{ book.author }}</p>
-                    <p class="text-gray-600">Giá: {{ book.price }} VNĐ</p>
+                    <p class="text-gray-600">Giá: {{ formatPrice(book.price) }} VNĐ</p>
                     <p>Đánh giá: {{ book.avgRating }} / 5</p>
                     <div class="flex items-center">
                         <router-link :to="`/books/${book.id}`" class="flex-[0.8] mt-3 mr-1 px-3 py-2 text-center text-[#FF971D] bg-[#FF971D]/20 hover:bg-[#FF971D] hover:text-white duration-200 border border-[#FF971D] rounded-md">Mua ngay</router-link>

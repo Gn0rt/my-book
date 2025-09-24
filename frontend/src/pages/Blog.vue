@@ -3,7 +3,7 @@
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import BlogSkeleton from '@/components/BlogSkeleton.vue';
 import MaskImg from '@/assets/images/mask.png';
-import PersonModal from '@/assets/images/personModal.png';
+import BookImg from '@/assets/images/book.png';
 import BlogLayout from '@/layouts/BlogLayout.vue';
 import { blogs } from '@/fakedata/blog.js';
 import { ref, onMounted, computed } from 'vue';
@@ -43,7 +43,7 @@ const filteredBlogs = computed(() => {
       <div class="absolute top-0 left-0 w-full h-full -z-10 overflow-hidden">
           <img :src="MaskImg" alt="" class="absolute top-0 right-0 h-[500px] w-[650px] object-cover" />
           <img
-          :src="PersonModal"
+          :src="BookImg"
           alt=""
           class="absolute top-[100px] sm:right-[10%] right-0 h-[400px] w-auto object-contain"
           />

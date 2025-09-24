@@ -4,6 +4,7 @@ import Blog from '@/pages/Blog.vue'
 import Shop from '@/pages/Shop.vue'
 import Login from '@/pages/Auth/DefaultAuth.vue'
 import DetailBlog from '@/pages/DetailBlog.vue'
+import DetailProduct from '@/pages/DetailProduct.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -16,7 +17,6 @@ const router = createRouter({
       path: '/blog',
       name: 'Blog',
       component: Blog,
-
     },
     {
       path: '/detail-blog/:id',
@@ -27,6 +27,11 @@ const router = createRouter({
       path: '/shop',
       name: 'Shop',
       component: Shop,
+    },
+    {
+      path: '/detail-product',
+      name: 'DetailProduct',
+      component: DetailProduct
     },
     {
       path: '/login',
