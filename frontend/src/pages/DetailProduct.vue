@@ -23,12 +23,15 @@ onUnmounted(() => {
 
     <div class="grid grid-cols-12 px-4 pb-5 absolute top-[15%] sm:top-[25%] gap-4">
         <div class="col-span-12 sm:col-span-8 bg-[#F5F6F8]">
-            <div class="flex items-center justify-center ">
+            <div class="flex items-center ">
                 <div class="">
                     <img :src="ProductImg" alt="" class="h-[350px] object-contain sm:h-[500px]">
                 </div>
-                <div class="mb-5 sm:mt-10 sm:mb-0">
-                    <h2 class="text-3xl sm:text-6xl my-2">Garis Waktu</h2>
+                <div class="mb-5 sm:mt-10 sm:mb-10">
+                    <h2 
+                    class="text-3xl sm:text-6xl my-2 text-wrap w-[600px] line-clamp-2"
+                    :class="[isMobile ? 'truncate w-[200px]' : '']"
+                    >Garis Waktu ssssssssssss ssssssssssssssssssssssssssssssssssss</h2>
                     <div class="text-xs sm:text-base">
                         <span >By Author</span>
                         <span>1 Juli 2016</span>
