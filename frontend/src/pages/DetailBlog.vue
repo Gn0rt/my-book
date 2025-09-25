@@ -41,7 +41,7 @@ onMounted(() => {
             </div>
 
             <!-- Nội dung chữ -->
-            <div class="relative sm:mt-0 mt-[100px] z-10 max-w-4xl text-center lg:text-left sm:px-20 sm:py-30 px-5">
+            <div class="relative top-20 sm:mt-0 mt-[100px] z-10 max-w-4xl text-center lg:text-left sm:px-20 sm:py-30 px-5">
                 <h1 
                 class="text-5xl font-bold uppercase mb-4"
                 :class="[isMobile ? 'text-white': 'text-black, text-[75px]']"
@@ -51,7 +51,7 @@ onMounted(() => {
                 </p>
             </div>
 
-            <div v-if="blog" class="w-full px-6 pb-10 pt-10 bg-[#F5F6F8] mt-[100px] flex flex-col items-center">
+            <div v-if="blog" class="w-full px-6 pb-10 pt-10 bg-[#F5F6F8] mt-[280px] flex flex-col items-center">
                 <div>
                     <img 
                     :src="blog.imgBlogDetail" 

@@ -5,6 +5,7 @@ import Shop from '@/pages/Shop.vue'
 import Login from '@/pages/Auth/DefaultAuth.vue'
 import DetailBlog from '@/pages/DetailBlog.vue'
 import DetailProduct from '@/pages/DetailProduct.vue'
+import Cart from '@/pages/Cart.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -37,6 +38,11 @@ const router = createRouter({
       path: '/login',
       name: 'Login',
       component: Login,
+    },
+    {
+      path: '/cart',
+      name: 'Cart',
+      component: Cart,
     }
 
   ],
