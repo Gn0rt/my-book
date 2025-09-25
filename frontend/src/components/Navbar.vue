@@ -20,6 +20,7 @@ const menuItems = [
    { name: 'Explorer', path: '/' },
    { name: 'Shop', path: '/shop' },
    { name: 'Blog', path: '/blog' },
+   { name: 'About us', path: '/about'}
  ];
  // Ref để tham chiếu đến các phần tử menu
 const tabRefs = ref([])
