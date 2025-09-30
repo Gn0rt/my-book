@@ -29,8 +29,8 @@ onUnmounted(() => {
                 </div>
                 <div class="mb-5 sm:mt-10 sm:mb-10">
                     <h2 
-                    class="text-3xl sm:text-6xl my-2 text-wrap w-[600px] line-clamp-2"
-                    :class="[isMobile ? 'truncate w-[200px]' : '']"
+                    class="text-3xl sm:text-6xl my-2 text-wrap sm:w-[600px] line-clamp-2"
+                    :class="[isMobile ? 'w-[200px]' : '']"
                     >Garis Waktu ssssssssssss sssssssssssssssss sssssssssssssssssss</h2>
                     <div class="text-xs sm:text-base">
                         <span >By Author</span>

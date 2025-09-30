@@ -3,6 +3,7 @@
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import MaskImg from '@/assets/images/mask.png';
 import PersonModal from '@/assets/images/personModal.png';
+import ImgDetail from '@/assets/images/detailblogimg.png';
 const props = defineProps({
   isMobile: {
     type: Boolean,
@@ -32,21 +33,27 @@ const props = defineProps({
         <p class="text-xl sm::text-2xl sm:text-black text-white font-light mb-8 capitalize">
           find your favorite book and read it here for free
         </p>
-        <div class="flex justify-center lg:justify-start">
-          <input
-            type="text"
-            v-model="searchBlog"
-            placeholder="Search articles..."
-            class="px-4 py-2 w-full max-w-md border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+      
       </div>
 
 
-      <div>
+      <div class="mt-[230px] p-5">
         <!-- Welcome -->
-        <div>
-
+        <h3 class="text-3xl font-semibold mt-10 mb-4">Welcome to MYBOOK's Shop</h3>
+        <div class="flex flex-col items-center">
+          <p class="text-justify mb-4">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+            Exercitationem dolorem, quibusdam, nostrum culpa accusamus 
+            magni sint rerum libero illum totam soluta error corporis facilis 
+            quo et nobis natus modi, consectetur quod. Eligendi reprehenderit 
+            quod nulla iste vitae reiciendis debitis eum eos atque veniam fugit 
+            illum rerum corrupti ducimus ipsam numquam id tenetur error dicta at, 
+            dignissimos explicabo nam? Reprehenderit, explicabo!
+          </p>
+          <div>
+            <img :src="ImgDetail" alt="">
+            <p class="text-center opacity-60">Image: Detail Img</p>
+          </div>
         </div>
 
         <!-- Recommended -->

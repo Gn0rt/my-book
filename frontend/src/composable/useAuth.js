@@ -1,5 +1,5 @@
 
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 export function useAuth() {
@@ -8,18 +8,22 @@ export function useAuth() {
 
   // Kiểm tra đăng nhập
   const loadUser = () => {
-    const savedUser = localStorage.getItem('currentUser')
+    const savedUser = localStorage.getItem('userSession')
     if (savedUser) {
       currentUser.value = JSON.parse(savedUser)
     }
   }
-
   // Đăng xuất
   const logout = () => {
-    localStorage.removeItem('currentUser')
+    localStorage.removeItem('userSession')
     currentUser.value = null
     router.push('/login')
   }
+
+  // Kiểm tra đã đăng nhập chưa
+  const isAuthenticated = computed(() => {
+    return !!currentUser.value;
+  });
 
   onMounted(() => {
     loadUser()
@@ -27,6 +31,7 @@ export function useAuth() {
 
   return {
     currentUser,
+    isAuthenticated,
     logout,
     loadUser
   }

@@ -51,7 +51,7 @@ onMounted(() => {
                 </p>
             </div>
 
-            <div v-if="blog" class="w-full px-6 pb-10 pt-10 bg-[#F5F6F8] mt-[280px] flex flex-col items-center">
+            <div v-if="blog" class="w-full px-6 pb-10 pt-10 bg-[#F5F6F8] mt-[230px] flex flex-col items-center">
                 <div>
                     <img 
                     :src="blog.imgBlogDetail" 

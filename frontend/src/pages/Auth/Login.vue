@@ -7,7 +7,7 @@ const router = useRouter();
 
 const props = defineProps(['users']);
 const userStorage = props.users;
-console.log(userStorage);
+
 const checkEmail = ref(false);
 const checkPassword = ref(false);
 
@@ -42,12 +42,16 @@ const handleSubmit = () => {
     console.log("Password không được để trống!");
   }
 
-  const user = userStorage.find(user => user.email === formData.value.emailLogin && user.password === formData.value.passwordLogin);
-  console.log(user)
+  const user = userStorage.find(user => 
+    user.email === formData.value.emailLogin && 
+    user.password === formData.value.passwordLogin &&
+    user.role === 'user'
+
+  );
   if(user) {
     console.log("Đăng nhập thành công!");
-    const {email, name, age, address} = user;
-    localStorage.setItem('currentUser', JSON.stringify({email, name, age, address}));
+    const {email, name, age, address, role} = user;
+    localStorage.setItem('userSession', JSON.stringify({email, name, age, address, role}));
     router.push('/');
   } else {
     if(!checkEmail.value && !checkPassword.value) {
