@@ -11,6 +11,7 @@ import Admin from '@/pages/Admin/layout/AdminLayout.vue';
 import ManageUser from '@/pages/Admin/views/User.vue';
 import Dashboard from '@/pages/Admin/views/Dashboard.vue';
 import ManageProduct from '@/pages/Admin/views/Product.vue';
+import AdminLogin from '@/pages/Admin/Auth/DefaultAdminAuth.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -64,26 +65,47 @@ const router = createRouter({
         {path: '', redirect: {name: 'Dashboard'}},
         {path: 'user', name:'User', component: ManageUser},
         {path: 'product', name: 'Product', component: ManageProduct},
-        {path: 'dashboard', name: 'Dashboard', component: Dashboard}
+        {path: 'dashboard', name: 'Dashboard', component: Dashboard},
       ]
+    },
+    {
+      path: "/admin-login",
+      name: "Admin Login",
+      component: AdminLogin
     }
 
   ],
 })
-// Thêm trước export default router
+// router/index.js
 router.beforeEach((to, from, next) => {
-  const currentUser = localStorage.getItem('currentUser');
-  const user = currentUser ? JSON.parse(currentUser) : null;
-
-  // Nếu route bắt đầu bằng /admin
+  // 1. Bảo vệ route ADMIN
   if (to.path.startsWith('/admin')) {
-    if (user && user.role === 'admin') {
-      next(); // Cho phép
+    if (to.path === '/admin-login') {
+      next(); // cho vào trang login admin
     } else {
-      next('/login'); // Chặn, redirect đến login
+      const adminSession = localStorage.getItem('adminSession');
+      if (adminSession) {
+        next();// Đã đăng nhập → cho vào
+      } else {
+        next('/admin-login'); // bắt đăng nhập admin
+      }
     }
-  } else {
-    next(); // Cho phép các route khác
+    return;
   }
-});
+
+  // 2. Bảo vệ route USER (tùy chọn: có thể cho xem không cần login)
+  // Ví dụ: chỉ /cart, /profile cần login
+  if (to.meta.requiresAuth) {
+    const userSession = localStorage.getItem('userSession')
+    if (userSession) {
+      next();
+    } else {
+      next('/login');
+    }
+    return;
+  }
+
+  // 3. Các route công khai (home, blog...) → cho qua
+  next();
+})
 export default router
