@@ -30,7 +30,20 @@ const underlineStyle = ref({
   left: 0,
   width: 0,
 });
+// Dropdown
+const isDropdownOpen = ref(false)
+const userMenuRef = ref(null)
 
+const toggleDropdown = () => {
+  isDropdownOpen.value = !isDropdownOpen.value
+}
+
+// Đóng dropdown khi click ngoài
+const handleClickOutside = (event) => {
+  if (userMenuRef.value && !userMenuRef.value.contains(event.target)) {
+    isDropdownOpen.value = false
+  }
+}
 const updateUnderline = () => {
   nextTick(() => {
     const activeIndex = menuItems.findIndex(item => item.path === route.path)
@@ -59,6 +72,7 @@ onMounted(() => {
   window.addEventListener('resize', handleResize);
   window.addEventListener("resize", updateMobileStatus);
   document.addEventListener('click', closeMenuOnClickOutside);
+  document.addEventListener('click', handleClickOutside)
 
 })
 
@@ -66,6 +80,7 @@ onUnmounted(() => {
   window.removeEventListener('resize', handleResize)
   window.removeEventListener("resize", updateMobileStatus);
   document.removeEventListener('click', closeMenuOnClickOutside);
+  document.removeEventListener('click', handleClickOutside)
 
 
 })
@@ -95,10 +110,53 @@ watch(
         @click="updateUnderline"
         >{{ item.name }}</router-link>
       </li>
-      <li class="bg-white rounded-3xl tracking-wider font-semibold hover:bg-slate-400 duration-300">
-        <button v-if="currentUser" @click="logout" class="px-7 py-2 inline-block">{{ currentUser.name }}</button>
-        <router-link v-else to="/login" class="px-7 py-2 inline-block">Login</router-link>
+      
+      <li class="relative" ref="userMenuRef">
+        <div
+          v-if="currentUser"
+          class="flex items-center gap-2 cursor-pointer text-white hover:text-gray-300 font-semibold"
+          @click="toggleDropdown"
+        >
+          <span>{{ currentUser.name }}</span>
+          <svg
+            class="w-4 h-4 ml-1 transition-transform"
+            :class="{ 'rotate-180': isDropdownOpen }"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </div>
+
+        <router-link
+          v-else
+          to="/login"
+          class="px-4 py-2 bg-white text-gray-800 rounded-3xl font-semibold hover:bg-slate-200 transition"
+        >
+          Login
+        </router-link>
+
+        <!-- Dropdown menu -->
+        <div
+          v-if="isDropdownOpen"
+          class="absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded-lg shadow-lg py-2 z-10"
+        >
+          <router-link
+            to="/profile"
+            class="block px-4 py-2 hover:bg-gray-100"
+          >
+            Profile
+          </router-link>
+          <button
+            @click="logout"
+            class="w-full text-left px-4 py-2 hover:bg-gray-100"
+          >
+            Đăng xuất
+          </button>
+        </div>
       </li>
+
       <!-- Gạch dưới trượt -->
       <span
         class="absolute bottom-0 h-[2px] bg-white transition-all duration-300 rounded-md"
@@ -130,8 +188,13 @@ watch(
             </router-link>
           </li>
           <li class="text-[14px] p-2">
-            <button v-if="currentUser" @click="logout" class="">Hello, {{ currentUser.name }}</button>
+            <router-link v-if="currentUser" to="/profile" class="">Hello, {{ currentUser.name }}</router-link>
             <router-link v-else to="/login" class="">Login</router-link>
+         </li>
+         <li v-if="currentUser" class="text-[14px] p-2 ">
+            <button @click="logout" class="py-1 inline-block w-[100px] active:bg-slate-400 text-right" tabindex="0">
+              Dang xuat
+            </button>
          </li>
         </ul>
         <div 

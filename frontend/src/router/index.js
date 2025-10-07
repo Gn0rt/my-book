@@ -7,6 +7,7 @@ import DetailBlog from '@/pages/DetailBlog.vue';
 import DetailProduct from '@/pages/DetailProduct.vue';
 import Cart from '@/pages/Cart.vue';
 import Aboutus from '@/pages/Aboutus.vue';
+import Profile from '@/pages/Profile.vue';
 import Admin from '@/pages/Admin/layout/AdminLayout.vue';
 import ManageUser from '@/pages/Admin/views/User.vue';
 import Dashboard from '@/pages/Admin/views/Dashboard.vue';
@@ -55,6 +56,12 @@ const router = createRouter({
       path: '/cart',
       name: 'Cart',
       component: Cart,
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: Profile,
+      meta: { requiresAuth: true } // Chỉ cho phép truy cập khi đã đăng nhập
     },
     //admin
     {
