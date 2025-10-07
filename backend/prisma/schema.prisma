@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// ================== USER ==================
+model User {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  email    String   @unique
+  password String
+  address  String?
+  phone    String?
+  role     Role     @default(USER)
+  createdAt DateTime @default(now())
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+// ================== PRODUCT (SÁCH) ==================
+model Product {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  name             String
+  description      String
+  author           String
+  publisher        String
+  price            Float    // hoặc Decimal nếu cần chính xác
+  image            String   // URL
+  genre            String
+  dateUpdate       DateTime @default(now())
+  country          String
+  publicationDate  DateTime
+  viewCount        Int      @default(0)   // thay vì "count"
+  sales            Int      @default(0)
+  stock            Int
+  avgRating        Float    @default(0)
+  totalReviews     Int      @default(0)
+}
+// ================== CART ==================
+model Cart {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   // lưu ID của user (không dùng @relation)
+  productId String   // lưu ID của product
+  price     Float    // giá tại thời điểm thêm vào giỏ
+  count     Int      @default(1)
+  totalPrice Float   @default(0) // hoặc tính động, nhưng lưu cũng được
+  createdAt DateTime @default(now())
+}
