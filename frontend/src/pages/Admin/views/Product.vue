@@ -1,27 +1,44 @@
-<script setup>
-import {products} from '@/fakedata/products.js';
+<script setup lang="ts">
+// import {products} from '@/fakedata/products.js';
 import Pagination from '@/components/Pagination.vue';
-import { computed, ref } from 'vue';
-//trả về một mảng thể loại
-console.log(products);
+import { computed, ref, onMounted } from 'vue';
+import { productApi, Product } from '../../../api/product.api';
+
+
+const products = ref<Product[]>([]);
+const loading = ref(false);
+const loadProducts = async () => {
+  loading.value = true;
+  try {
+    const response = await productApi.getAll();
+    products.value = response.data;
+  } catch (error) {
+    console.error('Failed to fetch products:', error);
+  } finally {
+    loading.value = false;
+  }
+};
 
 const uniqueGenres = computed(() => {
-  return ['All',...new Set(products.map(product => product.genre))];
+  return ['All',...new Set(products.value.map(product => product.genre))];
 })
 const currentPage = ref(1);
 //số sản phẩm mỗi trang
 const postPerPage = ref(8);
-const totalPages = computed(() => Math.ceil(products.length / postPerPage.value));
+const totalPages = computed(() => Math.ceil(products.value.length / postPerPage.value));
 //tính toán hiển thị sản phẩm trên trang hiện tại
 const displayedProducts = computed(() => {
     const start = (currentPage.value - 1) * postPerPage.value;
     const end = start + postPerPage.value;
-    return products.slice(start, end);
+    return products.value.slice(start, end);
 })
-const handleChangePage = (page) => {
+const handleChangePage = (page: number) => {
     currentPage.value = page;
     console.log("Current page changed to:", currentPage.value);
 }
+onMounted(() => {
+  loadProducts();
+});
 </script>
 
 <template>

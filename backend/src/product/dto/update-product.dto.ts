@@ -8,5 +8,5 @@ export class UpdateProductDto {
   genre?: string;
   country?: string;
   publishedDate?: string;
-  count?: number;
+  viewCount?: number;
 }

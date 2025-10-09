@@ -1,56 +1,70 @@
-<script setup>
+<script setup lang="ts">
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import MaskImg from '@/assets/images/mask.png';
 import PersonModal from '@/assets/images/personModal.png';
 import Sidebar from '@/components/Sidebar.vue';
 import SidebarMobile from '@/components/SidebarMobile.vue';
 import ShopLayout from '@/layouts/ShopLayout.vue';
-import {products} from '@/fakedata/products.js';
+// import {products} from '@/fakedata/products.js';
 import { computed, ref, onMounted } from 'vue';
 import BlogSkeleton from '@/components/BlogSkeleton.vue';
+import { productApi, Product } from '../api/product.api';
 const props = defineProps({
   isMobile: {
     type: Boolean,
     default: false
   }
 })
+const products = ref<Product[]>([]);
+const loading = ref(false);
+const loadProducts = async () => {
+  loading.value = true;
+  try {
+    const response = await productApi.getAll();
+    products.value = response.data;
+  } catch (error) {
+    console.error('Failed to fetch products:', error);
+  } finally {
+    loading.value = false;
+  }
+};
 //trả về một mảng thể loại
 const uniqueGenres = computed(() => {
-  return ['All',...new Set(products.map(product => product.genre))];
+  const genres = products.value
+    .map(p => (p.genre || '').trim())
+    .filter(genre => genre); // loại bỏ genre rỗng
+  return ['All',...new Set(genres)];
 })
 //thể loại được chọn mặc định là thể loại đầu tiên trong mảng
 const selectedGenre = ref('All');
-console.log("uniquegenre: ",uniqueGenres);
-console.log("genre: ",selectedGenre);
-
 //đếm số sản phẩm của thể loại được chọn
 const currentProducts = computed(() => {
   if (selectedGenre.value.toLocaleLowerCase().trim() === 'All'.toLocaleLowerCase().trim()) {
-    return products; // ✅ Trả về tất cả sản phẩm
+    return products.value; // Trả về tất cả sản phẩm
   }
-  return products.filter(book => book.genre === selectedGenre.value);
+  const targetGenre = selectedGenre.value.trim().toLowerCase();
+  return products.value.filter(book => {
+    const bookGenre = (book.genre || '').trim().toLowerCase();
+    return bookGenre === targetGenre;
+  });
+  // return products.value.filter(book => book.genre === selectedGenre.value);
 });
-console.log("currentBooks: ",currentProducts);
 
 //xuwr lý sự kiện chọn thể loại
-const handleSelectGenre = (genre) => {
+const handleSelectGenre = (genre: string) => {
   selectedGenre.value = genre;
   console.log("Selected genre:", selectedGenre.value);
   console.log("currentBooks after selection:", currentProducts.value);
 };
 
-const isLoaded = ref(false);
 onMounted(() => {
-  setTimeout(() => {
-    isLoaded.value = true;
-  }, 3000); // Giả lập thời gian tải dữ liệu
+  loadProducts();
 });
 </script>
 
 <template>
   <DefaultLayout>
-    <template #default="{isMobile}">
-
+    <template #default="{ isMobile }">
       <div class="absolute top-0 left-0 w-full h-full -z-10 overflow-hidden">
         <img :src="MaskImg" alt="" class="absolute top-0 right-0 h-[500px] w-[650px] object-cover" />
         <img
@@ -73,7 +87,6 @@ onMounted(() => {
         <div class="flex justify-center lg:justify-start">
           <input
             type="text"
-            v-model="searchBlog"
             placeholder="Search articles..."
             class="px-4 py-2 w-full max-w-md border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             :class="[isMobile ? 'hidden' : '']"
@@ -101,8 +114,8 @@ onMounted(() => {
               @selectGenre="handleSelectGenre"
             />
           </div>
-          <ShopLayout v-if="isLoaded" :books="currentProducts" :genre="selectedGenre" />
-          <BlogSkeleton v-if="!isLoaded" />
+          <BlogSkeleton v-if="loading" />
+          <ShopLayout v-else :books="currentProducts" :genre="selectedGenre" />
         </div>
 
       </div>
