@@ -8,6 +8,8 @@ const menuItems = [
   { name: 'Dashboard', path: 'dashboard' },
   { name: 'User', path: 'user' },
   { name: 'Product', path: 'product' },
+  { name: 'Blog', path: 'blog' },
+
 ]
 
 const route = useRoute()

@@ -13,7 +13,7 @@ import ManageUser from '@/pages/Admin/views/User.vue';
 import Dashboard from '@/pages/Admin/views/Dashboard.vue';
 import ManageProduct from '@/pages/Admin/views/Product.vue';
 import AdminLogin from '@/pages/Admin/Auth/DefaultAdminAuth.vue';
-
+import ManageBlog from '@/pages/Admin/views/Blog.vue';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -73,6 +73,8 @@ const router = createRouter({
         {path: 'user', name:'User', component: ManageUser},
         {path: 'product', name: 'Product', component: ManageProduct},
         {path: 'dashboard', name: 'Dashboard', component: Dashboard},
+        {path: 'blog', name: 'Blog', component: ManageBlog},
+
       ]
     },
     {
