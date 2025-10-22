@@ -1,9 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import Pagination from '@/components/Pagination.vue';
-import {ref, computed} from 'vue'
+import {ref, computed} from 'vue';
+import type { Blog } from '../api/blog.api';
+
 const props = defineProps({
     blogs: {
-        type: Array,
+        type: Array as () => Blog[],
         required: true
     }
 });
@@ -17,11 +19,16 @@ console.log("totalPages: ", totalPages);
 
 //tính toán hiển thị sản phẩm trên trang hiện tại
 const displayedBlogs = computed(() => {
+    //chỉ slice nếu books là mảng
+    if (!Array.isArray(props.blogs)) {
+        console.warn('books is not an array:', props.blogs);
+        return [];
+    }
     const start = (currentPage.value - 1) * postPerPage.value;
     const end = start + postPerPage.value;
     return props.blogs.slice(start, end);
 })
-const handleChangePage = (page) => {
+const handleChangePage = (page: number) => {
     currentPage.value = page;
     console.log("Current page changed to:", currentPage.value);
 }
@@ -40,7 +47,7 @@ const handleChangePage = (page) => {
                         <img :src="blog.image" alt="" class="w-full h-[200px] object-cover rounded-t-lg">
                         <div class="p-4 text-center">
                             <h2 class="text-xl font-bold mb-2">{{ blog.title }}</h2>
-                            <p class="text-gray-700 text-[14px] sm:text-base ">{{ blog.content }}</p>
+                            <p class="text-gray-700 text-[14px] sm:text-base ">{{ blog.excerpt }}</p>
                         </div>
                     </router-link>
                 </div>

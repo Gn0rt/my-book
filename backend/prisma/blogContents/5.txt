@@ -1,0 +1,46 @@
+1. Giới thiệu NestJS – Tại sao bạn nên học?
+
+Khi bạn làm việc với frontend như React hay Vue, sớm muộn bạn cũng sẽ cần backend để:
+
+Lưu trữ dữ liệu (database)
+
+Xử lý logic (đăng nhập, thanh toán, CRUD)
+
+Cung cấp API cho ứng dụng client
+
+Và đây chính là nơi NestJS tỏa sáng 🌟
+
+NestJS là framework Node.js xây dựng trên Express (và hỗ trợ Fastify), được viết hoàn toàn bằng TypeScript.
+Nó giúp bạn tạo API backend có cấu trúc, dễ mở rộng và chuyên nghiệp như các ứng dụng enterprise.
+
+💬 “Nếu Express là bộ xương, thì NestJS là một cơ thể hoàn chỉnh với trí não TypeScript.”
+
+2. Tại sao chọn NestJS thay vì Express?
+Tiêu chí	Express	NestJS
+Cấu trúc dự án	Tự do (dễ lộn xộn)	Có mô-đun rõ ràng
+Ngôn ngữ	JavaScript	TypeScript
+Dependency Injection	Không có	Có sẵn (giống Angular)
+Test, Guard, Interceptor	Thủ công	Có sẵn, mạnh mẽ
+Học ban đầu	Dễ hơn	Mất thời gian hơn, nhưng xứng đáng
+
+Nói cách khác, NestJS là Express + TypeScript + Kiến trúc tốt.
+
+14. Lời khuyên cho người mới học NestJS 🌱
+
+Hiểu rõ JavaScript + TypeScript trước khi vào Nest.
+
+Học song song với Prisma hoặc TypeORM để làm full-stack.
+
+Tập làm CRUD + Auth (JWT) trước khi đến tính năng nâng cao.
+
+Đọc docs chính thức: https://docs.nestjs.com
+
+Xem source code các project mẫu — Nest có kiến trúc rất “sạch”, học được nhiều.
+
+🏁 Kết luận
+
+NestJS là framework kết hợp sức mạnh của Node.js, TypeScript, và kiến trúc module hóa, giúp lập trình viên xây dựng backend chuyên nghiệp, bảo mật và dễ mở rộng.
+
+Nó không chỉ dành cho các doanh nghiệp lớn mà còn cực kỳ lý tưởng cho cá nhân muốn học làm full-stack hiện đại.
+
+💬 “Học NestJS là bước chuyển từ viết code nhanh sang viết code có tổ chức.”

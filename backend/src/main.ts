@@ -11,8 +11,9 @@ async function bootstrap() {
   // 👇 In ra URL dễ nhìn
   console.log(`🚀 Server running on http://${host}:${port}`);
   console.log(`📚 API endpoints:`);
-  console.log(`   - Users:    http://${host}:${port}/users`);
-  console.log(`   - Products: http://${host}:${port}/products`);
-  console.log(`   - Carts:    http://${host}:${port}/carts`);
+  console.log(`   - User:    http://${host}:${port}/user`);
+  console.log(`   - Product: http://${host}:${port}/product`);
+  console.log(`   - Cart:    http://${host}:${port}/cart`);
+  console.log(`   - Blog:    http://${host}:${port}/blog`);
 }
 bootstrap();

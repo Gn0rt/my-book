@@ -1,0 +1,227 @@
+React không còn xa lạ trong giới lập trình web.
+Nếu bạn từng viết ứng dụng frontend, gần như chắc chắn bạn đã nghe (hoặc đang dùng) React.
+Nhưng React không chỉ là framework “làm web nhanh”, mà là một cách tư duy khác về việc xây dựng giao diện người dùng.
+
+Sau khi bạn đã hiểu React cơ bản (component, props, state, hook...), đây là lúc nên nâng cấp kỹ năng của mình.
+Dưới đây là 10 mẹo thực chiến giúp bạn code React hiệu quả hơn, sạch hơn, và chuyên nghiệp hơn.
+
+🧠 1. Tách component nhỏ, dễ tái sử dụng
+
+Sai lầm phổ biến của người mới học React là viết một component quá dài — hàng trăm dòng, chứa đủ logic, API, JSX lẫn CSS.
+Điều đó khiến code khó bảo trì và tái sử dụng.
+
+👉 Quy tắc vàng:
+
+“Một component chỉ nên làm một nhiệm vụ rõ ràng.”
+
+Ví dụ: thay vì viết tất cả trong UserProfile.jsx, hãy tách ra:
+
+<UserAvatar />
+<UserInfo />
+<UserStats />
+
+
+Mỗi phần chỉ nhận props cần thiết và hiển thị giao diện riêng.
+Khi bạn muốn dùng lại ở nơi khác, chỉ cần import component đó — đơn giản và gọn gàng.
+
+⚡ 2. Dùng React.memo để tối ưu hiệu năng
+
+Mỗi lần component cha re-render, tất cả component con mặc định cũng re-render — dù dữ liệu không đổi.
+Điều này có thể gây chậm với ứng dụng lớn.
+
+👉 Giải pháp: bọc component bằng React.memo()
+
+const UserCard = React.memo(({ name, age }) => {
+  console.log("Render lại UserCard");
+  return <div>{name} - {age}</div>;
+});
+
+
+Giờ đây, UserCard chỉ re-render khi name hoặc age thay đổi.
+Cực kỳ hữu ích cho danh sách lớn, bảng dữ liệu, hoặc các component con ít thay đổi.
+
+🪝 3. Hiểu rõ và dùng đúng Hook
+
+Hooks là linh hồn của React hiện đại. Nhưng nhiều người dùng sai hoặc chưa tận dụng hết sức mạnh của nó.
+Hãy nắm vững các Hook cốt lõi sau:
+
+Hook	Chức năng
+useState	Quản lý trạng thái (state) nội bộ.
+useEffect	Xử lý side-effect (API call, DOM, event).
+useMemo	Ghi nhớ giá trị tính toán phức tạp.
+useCallback	Ghi nhớ hàm để tránh re-render không cần thiết.
+useRef	Lưu trữ giá trị không gây re-render.
+
+Ví dụ useCallback:
+
+const handleClick = useCallback(() => {
+  console.log("Clicked!");
+}, []); // Không tạo hàm mới sau mỗi render
+
+
+Dùng đúng hook sẽ giúp code React nhẹ, dễ đọc và hiệu quả hơn rất nhiều.
+
+🧩 4. Tận dụng Custom Hook để chia sẻ logic
+
+Nếu bạn thấy mình copy-paste cùng một logic ở nhiều component — đó là lúc nên tạo custom hook.
+
+Ví dụ: nhiều component cùng fetch dữ liệu từ API.
+Thay vì viết lại useEffect mỗi nơi, hãy tách ra:
+
+import { useState, useEffect } from "react";
+
+export function useFetch(url) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(url)
+      .then(res => res.json())
+      .then(json => setData(json))
+      .finally(() => setLoading(false));
+  }, [url]);
+
+  return { data, loading };
+}
+
+
+Dùng lại ở bất kỳ đâu:
+
+const { data, loading } = useFetch("/api/users");
+
+
+✅ Gọn gàng, tái sử dụng cao, và dễ test.
+
+⚙️ 5. Quản lý state đúng cách – local vs global
+
+Không phải state nào cũng cần đưa lên context hoặc Redux.
+Một quy tắc đơn giản:
+
+Nếu state chỉ dùng trong một component → dùng useState.
+
+Nếu nhiều component con cần chia sẻ → dùng Context hoặc Zustand, Jotai, Redux Toolkit.
+
+Ví dụ: modal, theme, hoặc user info dùng chung → nên để global.
+Còn input trong form, toggle ẩn/hiện riêng → local state là đủ.
+
+👉 Quá nhiều global state khiến ứng dụng khó debug và dễ lỗi.
+Giữ state “vừa đủ” ở nơi cần thiết là kỹ năng quan trọng của React dev chuyên nghiệp.
+
+🔄 6. Tránh lạm dụng useEffect
+
+useEffect là hook rất mạnh, nhưng dùng sai sẽ khiến code khó hiểu và lỗi vặt.
+Một số lỗi phổ biến:
+
+Gọi API trong useEffect nhưng quên cleanup → leak memory.
+
+Thiếu dependency trong [deps] → không cập nhật đúng.
+
+Gọi setState liên tục → lặp render vô hạn.
+
+Cách viết chuẩn:
+
+useEffect(() => {
+  let ignore = false;
+  async function loadData() {
+    const res = await fetch("/api/posts");
+    const json = await res.json();
+    if (!ignore) setPosts(json);
+  }
+  loadData();
+  return () => { ignore = true; }; // cleanup
+}, []);
+
+
+💡 Mẹo nhỏ: nếu useEffect của bạn trở nên phức tạp, hãy chia thành custom hook riêng — code sẽ rõ ràng hơn rất nhiều.
+
+🧭 7. Sử dụng TypeScript (hoặc PropTypes)
+
+React linh hoạt, nhưng cũng dễ “lỗi ngầm” vì props sai kiểu, dữ liệu undefined, v.v.
+Nếu dự án lớn hoặc làm việc nhóm, TypeScript là lựa chọn gần như bắt buộc.
+
+Ví dụ:
+
+type UserCardProps = {
+  name: string;
+  age?: number;
+};
+
+const UserCard: React.FC<UserCardProps> = ({ name, age }) => (
+  <p>{name} - {age}</p>
+);
+
+
+Giờ bạn chỉ cần gõ sai kiểu dữ liệu là VSCode báo lỗi ngay.
+Nếu chưa quen TypeScript, bạn có thể dùng PropTypes để kiểm tra kiểu props trong JavaScript thuần.
+
+🧱 8. Dùng thư viện UI chuyên nghiệp thay vì tự code lại
+
+Thay vì tốn thời gian CSS từng nút, từng form, hãy tận dụng thư viện UI như:
+
+Material UI (MUI)
+
+Chakra UI
+
+Ant Design
+
+Shadcn/UI + TailwindCSS
+
+Các thư viện này có sẵn hàng trăm component chuẩn responsive, dễ tùy biến.
+Điều đó giúp bạn tập trung vào logic thay vì style.
+
+Ví dụ (Chakra UI):
+
+import { Button } from "@chakra-ui/react";
+<Button colorScheme="teal" size="lg">Lưu lại</Button>
+
+
+Nhanh, đẹp, và nhất quán với toàn bộ app.
+
+🧰 9. Dùng thư viện dev tool và extension hỗ trợ
+
+React cung cấp React Developer Tools (có trên Chrome/Firefox).
+Công cụ này cho phép bạn:
+
+Xem cây component (Component Tree).
+
+Theo dõi props và state từng component.
+
+Phân tích hiệu suất render.
+
+Ngoài ra, nếu bạn dùng Redux, Zustand, hoặc React Query — cũng nên cài extension tương ứng để debug dễ hơn.
+Một số tool hữu ích:
+
+React Query Devtools – xem cache API.
+
+Zustand Devtools – xem global state.
+
+Redux DevTools – time travel debugging.
+
+Biết dùng đúng công cụ = tiết kiệm hàng giờ debug vô ích.
+
+🔥 10. Luôn cập nhật và học từ cộng đồng React
+
+React thay đổi liên tục — không phải về cú pháp, mà về triết lý và cách tiếp cận.
+Ví dụ:
+
+Từ class component → functional component + hooks.
+
+Từ Redux → Context + Zustand/RTK Query.
+
+Từ create-react-app → Next.js và Vite.
+
+Hãy theo dõi những nguồn uy tín để cập nhật:
+
+react.dev
+ – tài liệu chính thức.
+
+YouTube: Web Dev Simplified, Fireship, Traversy Media.
+
+Twitter/X: Dan Abramov, Kent C. Dodds, Theo Browne.
+
+Cộng đồng React cực kỳ năng động. Bạn học được rất nhiều chỉ bằng cách đọc blog, xem repo open-source, hoặc thử clone các dự án thực tế.
+
+🎯 Kết luận: React không chỉ là framework, mà là mindset
+
+React dạy bạn cách nghĩ theo component, chia nhỏ vấn đề, quản lý state, và tối ưu trải nghiệm người dùng.
+10 mẹo trên không chỉ giúp bạn “code đẹp hơn”, mà còn giúp bạn suy nghĩ như một React developer chuyên nghiệp.

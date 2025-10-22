@@ -1,10 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import MaskImg from '@/assets/images/mask.png';
 import PersonModal from '@/assets/images/personModal.png';
-import { blogs } from '@/fakedata/blog';
+// import { blogs } from '@/fakedata/blog';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { blogApi, Blog } from '../api/blog.api';
 const props = defineProps({
   isMobile: {
     type: Boolean,
@@ -12,17 +13,20 @@ const props = defineProps({
   }
 })
 const route = useRoute();
-const blogId = ref(null);
-const blog = ref(null);
-onMounted(() => {
-    blogId.value = route.params.id; //lấy id từ url
-    console.log("id", blogId.value);
+const blog = ref<Blog | null>(null);
 
-    blog.value = blogs.find(b => b.id === parseInt(blogId.value));
-    console.log("blog", blog.value);
 
-    if(!blog.value) {
-        console.error("Blog not found");
+onMounted( async () => {
+    const id = route.params.id as string;
+    if (id) {
+        try {
+        const response = await blogApi.getById(id);
+        blog.value = response.data;
+        } catch (error) {
+        console.error('Failed to fetch blog:', error);
+        } finally {
+        
+        }
     }
 })
 </script>
@@ -54,7 +58,7 @@ onMounted(() => {
             <div v-if="blog" class="w-full px-6 pb-10 pt-10 bg-[#F5F6F8] mt-[230px] flex flex-col items-center">
                 <div>
                     <img 
-                    :src="blog.imgBlogDetail" 
+                    :src="blog.image" 
                     class="h-[400px]" alt="Image Blog"
                     :class="[isMobile ? 'h-auto' : '']"
                     >
@@ -63,52 +67,16 @@ onMounted(() => {
                 <div class="mt-10">
                     <div>
                         <h3 class="font-bold text-3xl">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        </h3>        
+                            {{blog.title}}
+                        </h3>  
+                        <p>
+                            Ngày đăng: {{ new Date(blog.createdAt).toLocaleDateString('vi-VN') }}
+                        </p>     
+                        <p>
+                            Tác giả: {{blog.author}}
+                        </p> 
                         <div class="mt-5 text-justify">
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                            Obcaecati consequuntur optio possimus atque. 
-                            Mollitia ullam alias quaerat? Ad labore, suscipit magnam illum 
-                            laudantium doloribus perspiciatis delectus nihil voluptatum esse, 
-                            ullam explicabo aliquam nulla expedita voluptate qui dolorem facilis 
-                            placeat dolore repellendus assumenda soluta minima! Est, reiciendis maxime, omnis 
-                            repellendus exercitationem sunt praesentium illum enim, quaerat aut suscipit veniam. 
-                            Autem voluptatum modi eveniet necessitatibus illo aperiam facere repudiandae veritatis, 
-                            fuga, explicabo, nobis in inventore? Dolorem quaerat ipsam sunt adipisci amet ex repellendus 
-                            facere quae fugit, rem aliquam similique reprehenderit quis expedita nam deserunt itaque, 
-                            nobis eos ab accusamus minus dolores recusandae! Corporis nesciunt qui modi dolorem architecto 
-                            quis similique, delectus sit voluptatum! Ullam soluta esse magni. Ducimus, quas laboriosam. 
-                            Distinctio numquam natus corporis iusto suscipit laboriosam! Nobis expedita fugit sapiente modi hic 
-                            repudiandae nisi rerum similique nemo enim. Officia, eaque enim quaerat temporibus harum accusantium
-                            molestias perspiciatis. Neque hic, quo velit obcaecati soluta tempore ipsum quod placeat eligendi laboriosam 
-                            aliquid nulla minus ad. Quia dolor quidem consectetur id ab mollitia nihil expedita laborum minima quasi repudiandae, 
-                            architecto, at veritatis tempora aliquam autem ut nisi nulla, cumque ad cupiditate! Recusandae nostrum quae harum aut 
-                            voluptatem ipsum qui. Voluptas autem explicabo enim aspernatur?
-                        </div> 
-                    </div>
-                    <div class="mt-10">
-                        <h3 class="font-bold text-3xl">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        </h3>        
-                        <div class="mt-5 text-justify">
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                            Obcaecati consequuntur optio possimus atque. 
-                            Mollitia ullam alias quaerat? Ad labore, suscipit magnam illum 
-                            laudantium doloribus perspiciatis delectus nihil voluptatum esse, 
-                            ullam explicabo aliquam nulla expedita voluptate qui dolorem facilis 
-                            placeat dolore repellendus assumenda soluta minima! Est, reiciendis maxime, omnis 
-                            repellendus exercitationem sunt praesentium illum enim, quaerat aut suscipit veniam. 
-                            Autem voluptatum modi eveniet necessitatibus illo aperiam facere repudiandae veritatis, 
-                            fuga, explicabo, nobis in inventore? Dolorem quaerat ipsam sunt adipisci amet ex repellendus 
-                            facere quae fugit, rem aliquam similique reprehenderit quis expedita nam deserunt itaque, 
-                            nobis eos ab accusamus minus dolores recusandae! Corporis nesciunt qui modi dolorem architecto 
-                            quis similique, delectus sit voluptatum! Ullam soluta esse magni. Ducimus, quas laboriosam. 
-                            Distinctio numquam natus corporis iusto suscipit laboriosam! Nobis expedita fugit sapiente modi hic 
-                            repudiandae nisi rerum similique nemo enim. Officia, eaque enim quaerat temporibus harum accusantium
-                            molestias perspiciatis. Neque hic, quo velit obcaecati soluta tempore ipsum quod placeat eligendi laboriosam 
-                            aliquid nulla minus ad. Quia dolor quidem consectetur id ab mollitia nihil expedita laborum minima quasi repudiandae, 
-                            architecto, at veritatis tempora aliquam autem ut nisi nulla, cumque ad cupiditate! Recusandae nostrum quae harum aut 
-                            voluptatem ipsum qui. Voluptas autem explicabo enim aspernatur?
+                          <div v-html="blog.content"></div>
                         </div> 
                     </div>
                 </div>

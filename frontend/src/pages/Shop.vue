@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import DefaultLayout from '../layouts/DefaultLayout.vue';
 import MaskImg from '@/assets/images/mask.png';
 import PersonModal from '@/assets/images/personModal.png';
-import Sidebar from '@/components/Sidebar.vue';
-import SidebarMobile from '@/components/SidebarMobile.vue';
-import ShopLayout from '@/layouts/ShopLayout.vue';
-// import {products} from '@/fakedata/products.js';
+import Sidebar from '../components/Sidebar.vue';
+import SidebarMobile from '../components/SidebarMobile.vue';
+import ShopLayout from '../layouts/ShopLayout.vue';
 import { computed, ref, onMounted } from 'vue';
-import BlogSkeleton from '@/components/BlogSkeleton.vue';
+import BlogSkeleton from '../components/BlogSkeleton.vue';
 import { productApi, Product } from '../api/product.api';
 const props = defineProps({
   isMobile: {

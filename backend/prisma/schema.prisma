@@ -58,3 +58,15 @@ model Cart {
   totalPrice Float   @default(0) // hoặc tính động, nhưng lưu cũng được
   createdAt DateTime @default(now())
 }
+
+model Blog {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  author      String
+  content     String   // hoặc dùng String? nếu cho phép rỗng
+  excerpt     String  // mô tả ngắn (dùng ở trang danh sách)
+  image       String?  // ảnh đại diện
+  published   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

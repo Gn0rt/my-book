@@ -1,24 +1,35 @@
 <!-- src/pages/Home.vue -->
-<script setup>
+<script setup lang="ts">
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import BlogSkeleton from '@/components/BlogSkeleton.vue';
 import MaskImg from '@/assets/images/mask.png';
 import BookImg from '@/assets/images/book.png';
 import BlogLayout from '@/layouts/BlogLayout.vue';
-import { blogs } from '@/fakedata/blog.js';
+// import { blogs } from '@/fakedata/blog.js';
 import { ref, onMounted, computed } from 'vue';
+import { blogApi, Blog } from '../api/blog.api';
+
 const props = defineProps({
   isMobile: {
     type: Boolean,
     default: false
   }
 })
-const isLoaded = ref(false);
-console.log("blogs:", blogs)
+const blogs = ref<Blog[]>([]);
+const isLoaded = ref(true);
+
+const loadBlogs = async () => {
+  try {
+    const response = await blogApi.getAll();
+    blogs.value = response.data;
+  } catch (error) {
+    console.error('Failed to fetch blogs:', error);
+  } finally {
+    isLoaded.value = false;
+  }
+}
 onMounted(() => {
-  setTimeout(() => {
-    isLoaded.value = true;
-  }, 3000); // Giả lập thời gian tải dữ liệu
+  loadBlogs();
 });
 
 const searchBlog = ref('');
@@ -26,10 +37,10 @@ console.log(searchBlog);
 
 const filteredBlogs = computed(() => {
   if (!searchBlog.value) {
-    return blogs;
+    return blogs.value;
   }
   const query = searchBlog.value.toLowerCase().trim();
-  return blogs.filter(blog =>
+  return blogs.value.filter(blog =>
     blog.title.toLowerCase().includes(query) ||
     (blog.content && blog.content.toLowerCase().includes(query))
   );
@@ -68,18 +79,21 @@ const filteredBlogs = computed(() => {
         </div>
       </div>
 
-      <div
+      <!-- <div
         class="transition-opacity duration-300 ease-in"
         :class="{ 'opacity-0': !isLoaded, 'opacity-100': isLoaded }"
       >
         <BlogLayout v-if="isLoaded" :blogs="filteredBlogs" />
-      </div>
+      </div> -->
 
       <!-- Hiển thị Skeleton Loading nếu chưa load -->
-      <div v-if="!isLoaded" class="w-full px-6 pb-10 pt-10 bg-[#F5F6F8]">
+      <div v-if="isLoaded" class="w-full px-6 pb-10 pt-10 bg-[#F5F6F8]">
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
             <BlogSkeleton v-for="n in 6" :key="n" />
           </div>
+      </div>
+      <div v-else>
+        <BlogLayout :blogs="filteredBlogs" />
       </div>
     </template>
   </DefaultLayout>
