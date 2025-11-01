@@ -14,7 +14,7 @@ const updateMobileStatus = () => {
 
 const isMenuOpen = ref(false);
 
-const route = useRoute()
+const route = useRoute();
 
 const menuItems = [
    { name: 'Explorer', path: '/' },

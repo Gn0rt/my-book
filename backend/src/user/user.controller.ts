@@ -1,4 +1,11 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -8,6 +15,23 @@ export class UserController {
   @Get()
   findAll() {
     return this.userService.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.userService.findOne(id);
+  }
+
+  @Post('login')
+  async login(
+    @Body() { email, password }: { email: string; password: string },
+  ) {
+    const user = await this.userService.validateUser(email, password);
+    if (!user) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+    const { password: _, ...result } = user; // ✅ Loại bỏ password khỏi response
+    return result;
   }
 
   @Post()

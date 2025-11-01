@@ -1,63 +1,76 @@
-<script setup>
+<script setup lang="ts">
 import ImgLogin from "@/assets/images/login.png";
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
+import { userApi, LoginDto } from "../../api/user.api";
 
 const router = useRouter();
-
-const props = defineProps(['users']);
-const userStorage = props.users;
 
 const checkEmail = ref(false);
 const checkPassword = ref(false);
 
 const errorEmail = ref('');
 const errorPassword = ref('');
+const apiError = ref('');
 
 const formData = ref({
   emailLogin: '',
   passwordLogin: ''
 })
-// console.log(userStorage[0].email)
+
 const showPassword = ref(false);
+const loading = ref(false);
 
 const toggleShowPassword = () => {
   showPassword.value = !showPassword.value;
 }
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
+    // Reset lỗi
+  checkEmail.value = false;
+  checkPassword.value = false;
+  apiError.value = '';
+  let hasError = false;
+  
   if(!formData.value.emailLogin.trim()) {
     console.log("Email không được để trống!");
     checkEmail.value = true;
     errorEmail.value = "Email không được để trống!";
+    hasError = true;
   }else if(!/^\S+@\S+\.\S+$/.test(formData.value.emailLogin)) {
     checkEmail.value = true;
     errorEmail.value = "Email sai định dạng!";
     console.log("Email sai định dạng");
+    hasError = true;
   }
 
   if(!formData.value.passwordLogin.trim()) {
     checkPassword.value = true;
     errorPassword.value = "Password không được để trống!";
     console.log("Password không được để trống!");
+    hasError = true;
   }
+  if(hasError) return;
 
-  const user = userStorage.find(user => 
-    user.email === formData.value.emailLogin && 
-    user.password === formData.value.passwordLogin &&
-    user.role === 'user'
+  //goi api
+  loading.value = true;
+  try {
+    const info: LoginDto = {
+      email: formData.value.emailLogin,
+      password: formData.value.passwordLogin
+    };
 
-  );
-  if(user) {
-    console.log("Đăng nhập thành công!");
-    const {email, name, age, address, role} = user;
-    localStorage.setItem('userSession', JSON.stringify({email, name, age, address, role}));
-    router.push('/');
-  } else {
-    if(!checkEmail.value && !checkPassword.value) {
-      alert("Email hoặc Password không đúng!");
-      console.log("Email hoặc Password không đúng!");
-    }
+    const response = await userApi.login(info);
+    const user = response.data;
+    // Lưu user vào localStorage (không có password)
+    localStorage.setItem('userSession', JSON.stringify(user));
+    router.push('/'); // Chuyển hướng sau khi đăng nhập thành công
+  }
+  catch(error) {
+    apiError.value = 'Email hoặc mật khẩu không đúng!';
+    console.error('Login failed:', error);
+  }finally {
+    loading.value = false;
   }
 }
 
@@ -70,7 +83,9 @@ watch(() => [ formData.value.emailLogin, formData.value.passwordLogin], ([newEma
     checkPassword.value = false;
     errorPassword.value = '';
   }
+  apiError.value = '';
 })
+
 </script>
 
 <template>
@@ -113,12 +128,16 @@ watch(() => [ formData.value.emailLogin, formData.value.passwordLogin], ([newEma
         <p v-if="checkPassword" class="ml-4 text-xs text-red-500 w-full">{{ errorPassword }}</p>
       </div>
 
+      <!-- Lỗi API -->
+      <p v-if="apiError" class="text-red-500 text-sm mb-4">{{ apiError }}</p>
+
       <!-- Nút đăng nhập -->
       <button
         type="submit"
+        :disabled="loading"
         class="bg-[#FF971D] text-white p-3 rounded-lg hover:bg-[#faaa50] transition-colors duration-300 self-end"
       >
-        Đăng nhập
+        {{ loading ? 'Đang đăng nhập...' : 'Đăng nhập' }}
       </button>
     </form>
   </div>

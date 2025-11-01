@@ -6,7 +6,7 @@ export interface Blog {
   content: string
   excerpt: string
   image: string
-  createdAt: string // ✅ ISO string từ backend
+  createdAt: string
   updatedAt: string
 }
 

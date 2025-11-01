@@ -1,7 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import { reactive, ref } from "vue";
 import PageLogin from "./Login.vue";
 import PageRegister from "./Register.vue";
+
 const isFlipped = ref(false);
 
 const users = reactive([
