@@ -2,13 +2,9 @@
 import ImgLogin from "@/assets/images/login.png";
 import { ref, watch } from "vue";
 
-const props = defineProps(['users']);
-const userStorage = props.users;
-
 const checkEmail = ref(false);
 const checkPassword = ref(false);
 const passwordConfirm = ref(false);
-
 
 const errorEmail = ref('');
 const errorPassword = ref('');
@@ -17,22 +13,18 @@ const errorPasswordConfirm = ref('');
 const showPassword = ref(false);
 const showPasswordConfirm = ref(false);
 
-
 const toggleShowPassword = () => {
   showPassword.value = !showPassword.value;
 }
-
 const toggleShowPasswordConfirm = () => {
   showPasswordConfirm.value = !showPasswordConfirm.value;
 }
-
 
 const formData = ref({
   emailLogin: '',
   passwordLogin: '',
   passwordConfirm: ''
 })
-// console.log(userStorage[0].email)
 
 const handleSubmit = () => {
   if(!formData.value.emailLogin.trim()) {

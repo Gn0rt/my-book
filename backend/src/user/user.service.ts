@@ -31,7 +31,13 @@ export class UserService {
     });
   }
 
-  async create(data: { name: string; email: string; password: string }) {
+  async create(data: {
+    name: string;
+    email: string;
+    password: string;
+    address?: string;
+    phone?: string;
+  }) {
     const hashedPassword = await bcrypt.hash(data.password, 10);
     return this.prisma.user.create({
       data: {
@@ -42,6 +48,8 @@ export class UserService {
         id: true,
         name: true,
         email: true,
+        address: true,
+        phone: true,
         role: true,
         createdAt: true,
       },
@@ -49,10 +57,12 @@ export class UserService {
   }
 
   async validateUser(email: string, password: string) {
+    console.log('Validate user:', { email, password }); // 👈 LOG ĐỂ DEBUG
     const user = await this.prisma.user.findUnique({ where: { email } });
     if (!user) return null;
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
+    console.log('Password match:', isPasswordValid); // 👈 LOG KẾT QUẢ SO SÁNH
     if (!isPasswordValid) return null;
 
     return user;

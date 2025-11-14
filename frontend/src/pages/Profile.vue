@@ -1,13 +1,40 @@
-<script setup>
+<script setup lang="ts">
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import MaskImg from '@/assets/images/mask.png';
 import PersonModal from '@/assets/images/personModal.png';
 import ProfileLayout from '@/layouts/ProfileLayout.vue';
+import {ref , onMounted} from 'vue';
+import {userApi, User} from '../api/user.api'
 const props = defineProps({
   isMobile: {
     type: Boolean,
     default: false
   }
+})
+
+const user = ref<User | null>(null);
+const loading = ref(true);
+const error = ref<string | null>(null);
+
+const loadProfile = async ()  => {
+    try {
+        //lay thong tin tu localStorage
+        const storedUser = localStorage.getItem("userSession");
+        if(storedUser) {
+            const userData = JSON.parse(storedUser);
+            user.value = userData;
+            console.log("User data: ", user.value);
+        }
+    }catch(err) {
+        error.value = "Khong lay duoc thong tin tai khoan!";
+        console.error(err);
+    }finally{
+        loading.value = false;
+    }
+}
+
+onMounted(() => {
+    loadProfile();
 })
 </script>
 
@@ -36,7 +63,9 @@ const props = defineProps({
             </div>
 
             <div class="mt-[150px]">
-                <ProfileLayout />
+                <ProfileLayout v-if="!loading && user" :user="user" />
+                <div v-else-if="loading">Loading...</div>
+                <div v-else-if="error">{{ error }}</div>
             </div>
 
 

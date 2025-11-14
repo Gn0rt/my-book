@@ -5,24 +5,6 @@ import PageRegister from "./Register.vue";
 
 const isFlipped = ref(false);
 
-const users = reactive([
-  {
-    email: 'abc@gmail.com',
-    password:'123456',
-    name: 'Gnort',
-    age: 20,
-    address: 'Hà Nội',
-    role: 'user',
-  },
-  {
-    email: 'bbc@gmail.com',
-    password: '123456',
-    name: 'Huyn',
-    age: 21,
-    address: 'Hà Nội',
-    role: 'admin'
-  }
-])
 </script>
 
 <template>
@@ -38,7 +20,7 @@ const users = reactive([
         <div
           class="absolute inset-0 [backface-visibility:hidden]"
         >
-          <PageLogin :users="users" />
+          <PageLogin  />
           <!-- Nút chuyển sang Đăng ký -->
           <div class="absolute sm:bottom-6 right-6 bottom-[60px]">
             <button
@@ -54,7 +36,7 @@ const users = reactive([
         <div
           class="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]"
         >
-          <PageRegister :users="users" />
+          <PageRegister />
           <!-- Nút quay lại Đăng nhập -->
           <div class="absolute bottom-6 right-6">
             <button

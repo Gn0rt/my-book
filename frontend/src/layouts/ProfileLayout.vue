@@ -1,4 +1,13 @@
-<script setup>
+<script setup lang="ts">
+import { User } from '../api/user.api';
+
+const props = defineProps<{
+  user: User;
+}>();
+
+// const props = defineProps({
+//   type: Object as () => User
+// })
 </script>
 <template>
   <div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
@@ -18,6 +27,7 @@
               id="name"
               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
               placeholder="Nhập họ và tên"
+              :value="user.name"
             />
           </div>
         </div>
@@ -31,6 +41,7 @@
               id="email"
               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
               placeholder="example@email.com"
+              :value="user.email"
             />
           </div>
         </div>
@@ -57,6 +68,7 @@
               id="address"
               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
               placeholder="Số nhà, đường, quận, thành phố"
+              :value="(user.address !== null) ? user.address : '' "
             />
           </div>
         </div>
@@ -70,6 +82,7 @@
               id="phone"
               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
               placeholder="0123 456 789"
+              :value="(user.phone !== null) ? user.phone : '' "
             />
           </div>
         </div>
